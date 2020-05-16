@@ -7,6 +7,7 @@ public class SumOfNumbers {
 
     public static void main(String[] args) {
         List<Double> numbers = new ArrayList<>();
+//        fillListFromUser(numbers);
         fillListFromUser(numbers);
         try {
             reversOrder(numbers);
@@ -15,24 +16,35 @@ public class SumOfNumbers {
         } catch (IllegalArgumentException ex) {
             System.out.println("Na pustej liscie nie da sie wykonac operacji");
         }
-
     }
 
-    static void fillListFromUser(List<Double> list) {
-        System.out.println("Podaj kolejną liczbę dodatnia (podaj ujemna liczbe aby wyjsc z programu)");
-
-        double input = sc.nextDouble();
-        if (input < 0)
-            return;
-
-        try {
-            list.add(input);
-        } catch (NumberFormatException e) {
-            System.err.println("Liczba w niepoprawnym formacie");
+    static List<Double> fillListFromUser(List<Double> list) {
+        boolean input = true;
+        do {
+            System.out.println("Podaj kolejną liczbę dodatnia (podaj ujemna liczbe aby wyjsc z programu)");
+            double value = sc.nextDouble();
+            if (value > 0) {
+                list.add(value);
+            } else {
+                input = false;
+            }
         }
-
-        fillListFromUser(list);
+        while (input);
+        return list;
     }
+
+//    static void fillListFromUser(List<Double> list) {
+//        System.out.println("Podaj kolejną liczbę dodatnia (podaj ujemna liczbe aby wyjsc z programu)");
+//        double input = sc.nextDouble();
+//        if (input < 0)
+//            return;
+//        try {
+//            list.add(input);
+//        } catch (NumberFormatException e) {
+//            System.err.println("Liczba w niepoprawnym formacie");
+//        }
+//        fillListFromUser(list);
+//    }
 
     static void sumOfNumbers(List<Double> list) {
         if (list.isEmpty()) {
