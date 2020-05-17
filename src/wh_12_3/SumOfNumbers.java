@@ -7,77 +7,67 @@ public class SumOfNumbers {
 
     public static void main(String[] args) {
         List<Double> numbers = new ArrayList<>();
-//        fillListFromUser(numbers);
         fillListFromUser(numbers);
         try {
-            reversOrder(numbers);
-            sumOfNumbers(numbers);
-            maxAndMinNumbers(numbers);
+            for(Double reversedNumbers: reversOrder(numbers)) {
+                System.out.println(reversedNumbers);
+            }
+            System.out.println(sumOfNumbers(numbers));
+            System.out.println(maxAndMinNumbers(numbers));
         } catch (IllegalArgumentException ex) {
             System.out.println("Na pustej liscie nie da sie wykonac operacji");
         }
     }
 
-    static List<Double> fillListFromUser(List<Double> list) {
+    static List<Double> fillListFromUser(List<Double> getNumbers) {
         boolean input = true;
         do {
             System.out.println("Podaj kolejną liczbę dodatnia (podaj ujemna liczbe aby wyjsc z programu)");
             double value = sc.nextDouble();
             if (value > 0) {
-                list.add(value);
+                getNumbers.add(value);
             } else {
                 input = false;
             }
         }
         while (input);
-        return list;
+        return getNumbers;
     }
 
-//    static void fillListFromUser(List<Double> list) {
-//        System.out.println("Podaj kolejną liczbę dodatnia (podaj ujemna liczbe aby wyjsc z programu)");
-//        double input = sc.nextDouble();
-//        if (input < 0)
-//            return;
-//        try {
-//            list.add(input);
-//        } catch (NumberFormatException e) {
-//            System.err.println("Liczba w niepoprawnym formacie");
-//        }
-//        fillListFromUser(list);
-//    }
-
-    static void sumOfNumbers(List<Double> list) {
-        if (list.isEmpty()) {
+    static String sumOfNumbers(List<Double> sumNumbers) {
+        if (sumNumbers.isEmpty()) {
             throw new IllegalArgumentException();
         }
         StringBuilder sb = new StringBuilder();
         int sum = 0;
-        for (double d : list) {
+        for (double d : sumNumbers) {
             sb.append(d);
             sb.append('+');
             sum += d;
         }
         sb.replace(sb.length() - 1, sb.length(), "=");
         sb.append(sum);
-        System.out.println(sb.toString());
+        return sb.toString();
     }
 
-    static void reversOrder(List<Double> list) {
-        if (list.isEmpty()) {
+    static List<Double> reversOrder(List<Double> listOfNumbers) {
+        if (listOfNumbers.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        ListIterator<Double> listIteratorList = list.listIterator(list.size());
+        List<Double> reversListOfNumbers = new ArrayList<>();
+        ListIterator<Double> listIteratorList = listOfNumbers.listIterator(listOfNumbers.size());
         while (listIteratorList.hasPrevious()) {
             Double number = listIteratorList.previous();
-            System.out.println(number);
+            reversListOfNumbers.add(number);
         }
+        return reversListOfNumbers;
     }
 
-    static void maxAndMinNumbers(List<Double> list) {
-        if (list.isEmpty()) {
+    static String maxAndMinNumbers(List<Double> listOfNumbers) {
+        if (listOfNumbers.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        System.out.println("Najwieksza liczba to: " + Collections.max(list) + "\n"
-                + "Najmniejsza liczba to: " + Collections.min(list));
+        return "Najwieksza liczba to: " + Collections.max(listOfNumbers) + "\n"
+                + "Najmniejsza liczba to: " + Collections.min(listOfNumbers);
     }
 }
